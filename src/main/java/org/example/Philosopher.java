@@ -25,8 +25,8 @@ public class Philosopher extends Thread {
             leftchopstick.grab();
             System.out.println("Philosopher " + (number + 1) + " grabs left chopstick.");
 
-            if(table.tryAcquire())
-            rightchopstick.grab();
+            if (table.tryAcquire())
+                rightchopstick.grab();
             System.out.println("Philosopher " + (number + 1) + " grabs right chopstick.");
 
             table.release();

@@ -5,11 +5,10 @@ import java.util.concurrent.Semaphore;
 public class Chopstick {
     public Semaphore mutex = new Semaphore(1);
 
-    void grab(){
-        try{
+    void grab() {
+        try {
             mutex.acquire();
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
