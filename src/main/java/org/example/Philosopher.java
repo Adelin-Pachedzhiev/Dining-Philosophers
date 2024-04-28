@@ -8,13 +8,13 @@ public class Philosopher extends Thread {
     private final int number;
     private final Chopstick leftchopstick;
     private final Chopstick rightchopstick;
-    private final Semaphore table;
+    private final Semaphore dish;
 
-    Philosopher(int num, Chopstick left, Chopstick right, Semaphore table) {
+    Philosopher(int num, Chopstick left, Chopstick right, Semaphore dish) {
         number = num;
         leftchopstick = left;
         rightchopstick = right;
-        this.table = table;
+        this.dish = dish;
     }
 
     public void run() {
@@ -25,11 +25,11 @@ public class Philosopher extends Thread {
             leftchopstick.grab();
             System.out.println("Philosopher " + (number + 1) + " grabs left chopstick.");
 
-            if (table.tryAcquire())
+            if (dish.tryAcquire())
                 rightchopstick.grab();
             System.out.println("Philosopher " + (number + 1) + " grabs right chopstick.");
 
-            table.release();
+            dish.release();
 
             eat();
 
@@ -43,7 +43,7 @@ public class Philosopher extends Thread {
 
     private void acquireTableSemaphore() {
         try {
-            table.acquire();
+            dish.acquire();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
